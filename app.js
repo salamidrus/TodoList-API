@@ -1,7 +1,6 @@
 // setting prequisites
 const express = require('express'),
   bodyParser = require('body-parser'),
-  dbConfig = require('./config/database.config'),
   cors = require('cors'),
   morgan = require('morgan')
   app = express();
@@ -9,29 +8,34 @@ const express = require('express'),
   app.use(cors());
   app.use(morgan('dev'));
 
+// setting env
+
+const result = require('dotenv').config();
+if (result.error) {
+    throw result.error
+} else {
+    console.log(result.parsed)
+}
 
 // setup mongoose connection
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'),
+  mongoDB = process.env.DB_URL;
 mongoose.Promise = global.Promise;
 
-mongoose.connect(dbConfig.url, {
-    useNewUrlParse: true
+mongoose.connect(mongoDB, {
+    useNewUrlParser: true
 }).then(() => {
     console.log('Successfully connected to the database');
 }).catch(err => {
     console.log('Could not connect to the database. Exiting now..', err);
-    process.exit(); //tanya bang agus
+    process.exit(); 
 })
 
 
 // set router here
 
-const todoRouter = require('./app/routes/todo');
-const userRouter = require('./app/routes/user')
-
-// regex
-
-const regex = new RegExp('(?=.*\d)')
+const todoRouter = require('./app/routes/todo'),
+  userRouter = require('./app/routes/user')
 
 
 app.use(bodyParser.urlencoded({ extended : false}))
@@ -47,7 +51,7 @@ app.get('/', (req, res) => {
 app.use('/todo', todoRouter); // set app router
 app.use('/user', userRouter);
 
-const port = 8000;
+const port = process.env.PORT;
 app.listen(port, () => {
     console.log("Server is listening on " + port)
 })

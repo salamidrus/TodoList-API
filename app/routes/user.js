@@ -1,11 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const userController = require('../controllers/user');
-const auth = require('../../middleware/auth');
+const express = require('express'),
+  router = express.Router(),
+  userController = require('../controllers/user'),
+  auth = require('../../middleware/auth')
 
-const multer = require('multer');
+  multer = require('multer'),
 
-const storage = multer.diskStorage({
+  storage = multer.diskStorage({
     destination: (req,res, cb) => {
         cb(null, 'public/uploads/')
     },

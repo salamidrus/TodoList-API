@@ -1,0 +1,24 @@
+image: node:10.15.0
+
+stages:
+  - build
+  - test
+  - production
+  
+proses compile:
+  stage: build
+  script: 
+    - npm install
+
+production:
+  type: deploy
+  stage: production
+  image: ruby:latest
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=<namaHerokuKalian> --api-key=<API KEY HEROKU KALIAN>
+  
+  only:
+    - master

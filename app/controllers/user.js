@@ -1,6 +1,7 @@
-const userCollection = require('../models/user');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const userCollection = require('../models/user'),
+  jwt = require('jsonwebtoken'),
+  bcrypt = require('bcrypt'),
+  fs = require('fs')
 
 
 exports.findAll = (req, res) => {
@@ -84,6 +85,7 @@ exports.delete  = (req, res) => {
     
       userCollection.findOneAndDelete({ "_id" : req.body.id})
       .then(() => {
+          fs.unlink('')
           res.json({
               success : true,
               message : "User successfully deleted!"
@@ -118,7 +120,7 @@ user.then((user) => {
         if(result) {
 
           let token = jwt.sign(user.toJSON(),
-          'abcd123',{
+          process.env.SECRET_KEY,{
           algorithm: 'HS256'
           });
         res.json({ message : "Successfully logged in!", token})
