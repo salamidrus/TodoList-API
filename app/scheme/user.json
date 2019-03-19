@@ -1,0 +1,11 @@
+{
+    "title" : "User",
+    "description" : "User profile with connection",
+    "type" : "object",
+    "properties": {
+        "name" : { "type" : "string", "maxLength" : 120},
+        "username" : {"type" : "string", "maxLength" : 20},
+        "email" : { "type" : "string", "format" : "email"},
+        "password" : {"type" : "string", "minLength" : 4} 
+    }
+}
