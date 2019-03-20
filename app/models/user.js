@@ -16,7 +16,8 @@ const UserSchema = Schema({
         required: [true, "can't be blank"], 
         match: [/^[a-zA-Z0-9]+$/, 'is invalid'], 
         index: true,
-        unique: true,
+        unique: [true, "username already exists!"],
+        uniqueCaseInsensitive: true,
         min: [4, "username minimum 4 characters"],
         max: 10
 
@@ -25,7 +26,7 @@ const UserSchema = Schema({
         type: String, 
         required: [true, "can't be blank"],
         min: 4, 
-        max : 10
+        max: 10
     },
     email: {
         type: String, 
@@ -34,7 +35,8 @@ const UserSchema = Schema({
         match: [/\S+@\S+\.\S+/, 'is invalid'], 
         index: true,
         unique: true,
-        min: 4
+        min: 4,
+        max: 10
         
     },
     todo: [{

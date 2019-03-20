@@ -7,7 +7,10 @@ const userCollection = require('../models/user'),
 exports.findAll = (req, res) => {
     userCollection.find().populate('todo')
     .then( user => {
-        res.json(user)
+        res.status(200).json({
+            success : true,
+            user : user
+        })
     })
     .catch(err => {
         res.status(500).json({
