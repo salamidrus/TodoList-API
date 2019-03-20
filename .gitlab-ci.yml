@@ -18,7 +18,7 @@ production:
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
-    - dpl --provider=heroku --app=<namaHerokuKalian> --api-key=<API KEY HEROKU KALIAN>
+    - dpl --provider=heroku --app=remindie --api-key=945236b2-dfe5-41a8-ad9d-c64a3866254f
   
   only:
     - master
