@@ -15,21 +15,20 @@ exports.findAll = (req, res) => {
     })
 }
 
-exports.findOne = (req, res) => { // set ajv
-
-    todoCollection.findById(req.body.id).populate('userId')
+exports.findOne = (req, res) => { 
+    todoCollection.find({userId: req.decoded._id})
     .then( todo => {
         res.json({
             success : true,
             data : todo,
-            user: todo.userId
+            // user: todo.userId
         })
     })
     .catch( err => {
         if(err.kind === 'ObjectId') {
-            return res.status(404).json({ // return biar ga kebawha
+            return res.status(404).json({
                 success : false,
-                message : "Data is not found with id" + req.body.id
+                message : "Data is not found with id" + req.decoded._id
             })
         }
         res.status(500).json({
