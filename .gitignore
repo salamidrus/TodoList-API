@@ -23,3 +23,6 @@ yarn-error.log*
 
 #public
 /public
+
+#eslint
+/.eslintrc.js
